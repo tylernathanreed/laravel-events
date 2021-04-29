@@ -180,7 +180,7 @@ class MyCustomListener
 
 Since you can utilize a non `handle` method through implicit or explicit binding, you could technically register your subscribers within the Event / Listener mapping. This can make sense if you want to list your subscribers under each respective event, rather than listing all events that are subscribed to.
 
-**Example:**
+*Example:*
 ```php
 'listen' => [
 
@@ -206,8 +206,6 @@ Since you can utilize a non `handle` method through implicit or explicit binding
 ### Subscriber / Event Mapping
 
 When working with subscribers, it often makes sense to list the subscribed events together. When listing subscribers in the configuration file, they do not need a `subscribe` method.
-
-**Example:**
 
 *Configuration:*
 ```php
@@ -322,6 +320,7 @@ This package fully supports custom observables, provided that they are registere
 
 You may prefer to instead list out models, and describe the observers beneath them. Both options are provided so that you can do what makes the most sense for you and your application.
 
+*Example:*
 ```php
 'models' => [
 
