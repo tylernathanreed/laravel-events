@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/reedware/laravel-events/v/stable)](https://packagist.org/packages/reedware/laravel-events)
 [![Total Downloads](https://poser.pugx.org/reedware/laravel-events/downloads)](https://packagist.org/packages/reedware/laravel-events)
-[![Laravel Version](https://img.shields.io/badge/Laravel-5.8%2B--8.x-blue)](https://laravel.com/)
+[![Laravel Version](https://img.shields.io/badge/Laravel-6.x--8.x-blue)](https://laravel.com/)
 [![Build Status](https://travis-ci.com/tylernathanreed/laravel-events.svg?branch=master)](https://travis-ci.com/tylernathanreed/laravel-events)
 
 This package allows you to define all of your events in a simple configuration file.
@@ -23,14 +23,18 @@ composer require reedware/laravel-events
 
 ### Configuration
 
-Next, you'll need to get your hands on the `events.php` configuration file. You can either copy it directly, or use `php artisan vendor:publish`.
+Next, you'll need to get your hands on the `events.php` configuration file. You can either copy it directly, or publish it.
+
+```
+php artisan vendor:publish
+```
 
 ### Service Provider
 
-Finally, you'll need to modify your service provider. You can either extend example provider in the package, or you can utilize the trait.
+Finally, you'll need to modify your service provider. You can either extend the example provider in the package, or you can utilize the trait.
 
-**Extending the Service Provider:**
-```
+#### Extending the Service Provider
+```php
 <?php
 
 namespace App\Providers;
@@ -43,8 +47,8 @@ class EventServiceProvider extends ServiceProvider
 }
 ```
 
-**Using the Trait instead:**
-```
+#### Using the Trait instead
+```php
 <?php
 
 namespace App\Providers;
@@ -60,7 +64,7 @@ class EventServiceProvider extends ServiceProvider
 
 If you've overridden the default `listens()` method, be sure to yield the configured events:
 
-```
+```php
 /**
  * Returns the events and handlers.
  *
@@ -94,7 +98,7 @@ As you dive in, you'll discover that there's more than one way to register an ev
 This is the traditional "listens" array that is typically a property within your `EventServerProvider`. You can list each event, and the listeners that listen to them.
 
 **Example:**
-```
+```php
 'listen' => [
 
     // When a user has registered...
@@ -112,13 +116,13 @@ This is the traditional "listens" array that is typically a property within your
 
 If your listener doesn't use the traditional `handle` method, you can call out the method directly like so:
 
-```
+```php
 'listen' => [
 
     // When a user has registered...
     Illuminate\Auth\Events\Registered::class => [
 
-        [App\Listeners\MyCustomListener::class, handleRegistration'],
+        [App\Listeners\MyCustomListener::class, 'handleRegistration'],
 
         // or
 
@@ -134,7 +138,7 @@ If your listener doesn't use the traditional `handle` method, you can call out t
 If your alternative method starts with the word `handle` (e.x. `handleRegistration`), and accepts the type-hinted event, you don't have do specify the custom method explicitly:
 
 *Listener:*
-```
+```php
 <?php
 
 namespace App\Listeners;
@@ -158,7 +162,7 @@ class MyCustomListener
 ```
 
 *Configuration:*
-```
+```php
 'listen' => [
 
     // When a user has registered...
@@ -177,7 +181,7 @@ class MyCustomListener
 Since you can utilize a non `handle` method through implicit or explicit binding, you could technically register your subscribers within the Event / Listener mapping. This can make sense if you want to list your subscribers under each respective event, rather than listing all events that are subscribed to.
 
 **Example:**
-```
+```php
 'listen' => [
 
     // When a user has registered...
@@ -206,7 +210,7 @@ When working with subscribers, it often makes sense to list the subscribed event
 **Example:**
 
 *Configuration:*
-```
+```php
 'subscribe' => [
 
     // Log a security event...
@@ -227,7 +231,7 @@ When working with subscribers, it often makes sense to list the subscribed event
 ```
 
 *Subscriber:*
-```
+```php
 <?php
 
 namespace App\Listeners;
@@ -272,7 +276,7 @@ Remember that implicit bindings requires the method to start with the word `hand
 
 Similar to the event / listener mapping, you may also use expicit binding:
 
-```
+```php
 'subscribe' => [
 
     // Log a security event...
@@ -296,7 +300,7 @@ Similar to the event / listener mapping, you may also use expicit binding:
 
 When fully utilized, observers often observe more than one model. Listing the models under the observers make more sense in this case. Here's how this can be configured:
 
-```
+```php
 'observe' => [
 
     // Track the creator for each of the following models...
@@ -318,7 +322,7 @@ This package fully supports custom observables, provided that they are registere
 
 You may prefer to instead list out models, and describe the observers beneath them. Both options are provided so that you can do what makes the most sense for you and your application.
 
-```
+```php
 'models' => [
 
     // Observe the user
