@@ -268,7 +268,7 @@ class LogSecurityEvent
 
 Remember that implicit bindings requires the method to start with the word `handle`, even when type-hinted.
 
-**Pro-Tip:** If you plan to always use implicit bindings for subscribers, consider using [Event Discovery](https://laravel.com/docs/master/events#event-discovery)!
+*Pro-Tip:* If you plan to always use implicit bindings for subscribers, consider using [Event Discovery](https://laravel.com/docs/master/events#event-discovery)!
 
 #### Explicit Bindings
 
@@ -296,7 +296,7 @@ Similar to the event / listener mapping, you may also use expicit binding:
 
 ### Observer / Model Mapping
 
-When fully utilized, observers often observe more than one model. Listing the models under the observers make more sense in this case. Here's how this can be configured:
+When fully utilized, observers often observe more than one model. Listing the models under the observers make more sense in this case. Here's how you can configure observers:
 
 ```php
 'observe' => [
@@ -318,9 +318,8 @@ This package fully supports custom observables, provided that they are registere
 
 ### Model / Observer Mapping
 
-You may prefer to instead list out models, and describe the observers beneath them. Both options are provided so that you can do what makes the most sense for you and your application.
+You may prefer to instead list out models, and describe the observers beneath them. Both options are provided so that you can do what makes the most sense for you and your application. Here's how listing the model first would work:
 
-*Example:*
 ```php
 'models' => [
 
