@@ -97,7 +97,7 @@ As you dive in, you'll discover that there's more than one way to register an ev
 
 This is the traditional "listens" array that is typically a property within your `EventServerProvider`. You can list each event, and the listeners that listen to them.
 
-**Example:**
+*Example:*
 ```php
 'listen' => [
 
