@@ -1,7 +1,6 @@
 # Laravel Events
 
 [![Latest Stable Version](https://poser.pugx.org/reedware/laravel-events/v/stable)](https://packagist.org/packages/reedware/laravel-events)
-[![Total Downloads](https://poser.pugx.org/reedware/laravel-events/downloads)](https://packagist.org/packages/reedware/laravel-events)
 [![Laravel Version](https://img.shields.io/badge/Laravel-6.x--8.x-blue)](https://laravel.com/)
 [![Build Status](https://travis-ci.com/tylernathanreed/laravel-events.svg?branch=master)](https://travis-ci.com/tylernathanreed/laravel-events)
 
