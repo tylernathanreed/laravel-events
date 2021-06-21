@@ -141,9 +141,14 @@ class NormalizeEvents
         // isn't the case, we're going to bail, as we don't know how
         // to handle what the developer has provided to us. Fun.
 
-        // Make sure the listener is valid
-        if(!is_string($listener) || !class_exists($listener)) {
-            throw new InvalidArgumentException('Argument #1 passed to normalizeListener() must be a valid listener.');
+        // If the listener isn't a string, bail
+        if(!is_string($listener)) {
+            throw new InvalidArgumentException('Listener [' . json_encode($listener) . '] is invalid.');
+        }
+
+        // If the listener is a string, but not a class, bail
+        if(is_string($listener) && !class_exists($listener)) {
+            throw new InvalidArgumentException("Listener class [{$listener}] does not exist.");
         }
 
         // Reflect the listener
@@ -151,7 +156,7 @@ class NormalizeEvents
 
         // Make sure the listener can be instantiated
         if(!$listener->isInstantiable()) {
-            throw new InvalidArgumentException('Argument #1 passed to normalizeListener() must be a valid listener.');
+            throw new InvalidArgumentException("Listener class [{$listener}] cannot be instantiated.");
         }
 
         // At this point, we need to determine which method to use. We
@@ -275,9 +280,15 @@ class NormalizeEvents
      * @param  string  $model
      *
      * @return array
+     * 
+     * @throws \InvalidArgumentException
      */
     public static function getObservableEvents(string $observer, string $model)
     {
+        if(!class_exists($observer)) {
+            throw new InvalidArgumentException("Observer class [{$observer}] does not exist.");
+        }
+
         return array_values(array_filter((new $model)->getObservableEvents(), function($event) use ($observer) {
             return method_exists($observer, $event);
         }));

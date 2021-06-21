@@ -5,6 +5,40 @@ namespace Reedware\LaravelEvents;
 trait ConfiguredEvents
 {
     /**
+     * Register the application's event listeners.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->booting(function () {
+            $this->registerEvents();
+        });
+    }
+
+    /**
+     * Register the application's event listeners.
+     *
+     * @return void
+     */
+    protected function registerEvents()
+    {
+        $dispatcher = $this->app->make('events');
+
+        $events = $this->getEvents();
+
+        foreach ($events as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                $dispatcher->listen($event, $listener);
+            }
+        }
+
+        foreach ($this->subscribe as $subscriber) {
+            $dispatcher->subscribe($subscriber);
+        }
+    }
+
+    /**
      * Returns the events and handlers.
      *
      * @return array
@@ -19,7 +53,7 @@ trait ConfiguredEvents
      *
      * @return array
      */
-    protected function configuredEvents()
+    public function configuredEvents()
     {
         // Determine the event configuration
         $config = $this->app->config->get('events');

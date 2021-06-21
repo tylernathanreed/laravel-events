@@ -2,42 +2,12 @@
 
 namespace Reedware\LaravelEvents\Tests;
 
-use Illuminate\Database\Connection;
-use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Database\Query\Grammars\Grammar;
-use Illuminate\Database\Query\Processors\Processor;
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Reedware\LaravelEvents\NormalizeEvents;
 
 class NormalizeEventsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
-    protected function tearDown(): void
-    {
-        m::close();
-    }
-
-    protected function setUpConnectionResolver()
-    {
-        BasicModel::setConnectionResolver($resolver = m::mock(ConnectionResolverInterface::class));
-
-        $resolver->shouldReceive('connection')->andReturn($mockConnection = m::mock(Connection::class));
-
-        $mockConnection->shouldReceive('getQueryGrammar')->andReturn($grammar = new Grammar);
-        $mockConnection->shouldReceive('getPostProcessor')->andReturn($mockProcessor = m::mock(Processor::class));
-        $mockConnection->shouldReceive('query')->andReturnUsing(function () use ($mockConnection, $grammar, $mockProcessor) {
-            return new Builder($mockConnection, $grammar, $mockProcessor);
-        });        
-    }
-
-
     public function testNormalizeListenerWithArray()
     {
         $listener = ['MyClass', 'myMethod'];

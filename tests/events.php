@@ -15,19 +15,18 @@ return [
 
     'listen' => [
 
-        // Illuminate\Auth\Events\Registered::class => [
-        //     Illuminate\Auth\Listeners\SendEmailVerificationNotification::class
-        // ],
+        Illuminate\Auth\Events\Registered::class => [
+            Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
+            App\Listeners\SendAnotherNotification::class,
+        ],
 
-        // Illuminate\Auth\Events\Login::class => [
-        //     App\Listeners\UserEventSubscriber::class // Implicit
-        //     [App\Listeners\UserEventSubscriber::class, 'handleUserLogin'] // Explicit
-        // ],
+        Illuminate\Auth\Events\Login::class => [
+            App\Listeners\UserEventSubscriber::class,
+        ],
 
-        // Illuminate\Auth\Events\Logout::class => [
-        //     App\Listeners\UserEventSubscriber::class // Implicit
-        //     [App\Listeners\UserEventSubscriber::class, 'handleUserLogout'] // Explicit
-        // ],
+        Illuminate\Auth\Events\Logout::class => [
+            [App\Listeners\UserEventSubscriber::class, 'handleUserLogout']
+        ],
 
     ],
 
@@ -44,15 +43,10 @@ return [
 
     'subscribe' => [
 
-        // App\Subscribers\UserEventSubscriber::class => [
-        //     Illuminate\Auth\Events\Login::class, // Implicit
-        //     Illuminate\Auth\Events\Logout::class // Implicit
-        // ],
-
-        // App\Subscribers\UserEventSubscriber::class => [
-        //     [Illuminate\Auth\Events\Login::class, 'handleUserLogin'] // Explicit
-        //     [Illuminate\Auth\Events\Logout::class, 'handleUserLogout'] // Explicit
-        // ]
+        App\Subscribers\InverseUserEventSubscriber::class => [
+            Illuminate\Auth\Events\Login::class,
+            [Illuminate\Auth\Events\Logout::class, 'handleUserLogout']
+        ]
 
     ],
 
@@ -69,9 +63,9 @@ return [
 
     'observe' => [
 
-        // App\Observers\UserObserver::class => [
-        //     App\Models\User::class
-        // ]
+        App\Observers\UserObserver::class => [
+            App\Models\User::class
+        ]
 
     ],
 
@@ -88,9 +82,9 @@ return [
 
     'models' => [
 
-        // App\Models\User::class => [
-        //     App\Observers\UserObserver::class
-        // ]
+        App\Models\Post::class => [
+            App\Observers\PostObserver::class
+        ]
 
     ]
 
