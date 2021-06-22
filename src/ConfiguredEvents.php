@@ -5,12 +5,32 @@ namespace Reedware\LaravelEvents;
 trait ConfiguredEvents
 {
     /**
+     * Registers the application's event listeners.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        if(!method_exists($this, 'booting')) {
+            return;
+        }
+        
+        $this->booting(function() {
+            $this->registerEvents();    
+        });
+    }
+
+    /**
      * Boots the application's event listeners.
      *
      * @return void
      */
     public function boot()
     {
+        if(method_exists($this, 'booting')) {
+            return;
+        }
+
         $this->registerEvents();
     }
 
