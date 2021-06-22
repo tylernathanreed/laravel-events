@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/reedware/laravel-events/v/stable)](https://packagist.org/packages/reedware/laravel-events)
 [![Laravel Version](https://img.shields.io/badge/Laravel-6.x--8.x-blue)](https://laravel.com/)
-[![Build Status](https://travis-ci.com/tylernathanreed/laravel-events.svg?branch=master)](https://travis-ci.com/tylernathanreed/laravel-events)
+[![Build Status](https://github.com/tylernathanreed/laravel-events/workflows/tests/badge.svg)](https://github.com/tylernathanreed/laravel-events/actions)
 
 This package allows you to define all of your events in a simple configuration file.
 
